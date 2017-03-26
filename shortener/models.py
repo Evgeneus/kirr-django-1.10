@@ -21,7 +21,7 @@ class KirrURLManager(models.Manager):
 
 @python_2_unicode_compatible
 class KirrURL(models.Model):
-    url = models.Cha
+    url = models.CharField(max_length=220)
     shortcode = models.CharField(max_length=15, unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
