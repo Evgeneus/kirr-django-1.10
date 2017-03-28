@@ -11,7 +11,7 @@ SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
 
 class KirrURLManager(models.Manager):
     def all(self, *args, **kwargs):
-        qs_main = super(KirrURL, self).all(*args, **kwargs)
+        qs_main = super(KirrURLManager, self).all(*args, **kwargs)
         qs = qs_main.filter(active=True)
         return qs
 
