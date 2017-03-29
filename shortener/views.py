@@ -25,9 +25,21 @@ class HomeView(View):
     def post(self, request, *args, **kwargs):
         form = SabmitUrlForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data.get('url'))
-        context = {
-            'title': 'Submit URL',
-            'form': form
-        }
-        return render(request, 'shortener/home.html', context)
+            new_url = form.cleaned_data.get('url')
+            obj, created = KirrURL.objects.get_or_create(url=new_url)
+            context = {
+                'object': obj,
+                'created': created
+            }
+            if created:
+                template = 'shortener/success.html'
+            else:
+                template = 'shortener/already-exists.html'
+        else:
+            template = 'shortener/home.html'
+            context = {
+                'title': 'Inavalid URL. Try again :)',
+                'form': form
+            }
+
+        return render(request, template, context)
