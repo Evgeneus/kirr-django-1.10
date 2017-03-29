@@ -4,6 +4,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.conf import settings
 from .utils import create_shortcode
+from .validators import validate_url
 
 
 SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
@@ -30,7 +31,7 @@ class KirrURLManager(models.Manager):
 
 @python_2_unicode_compatible
 class KirrURL(models.Model):
-    url = models.CharField(max_length=220)
+    url = models.CharField(max_length=220, validators=[validate_url])
     shortcode = models.CharField(max_length=SHORTCODE_MAX, unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
