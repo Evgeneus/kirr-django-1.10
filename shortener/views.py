@@ -5,11 +5,13 @@ from django.views import View
 
 from .forms import SabmitUrlForm
 from .models import KirrURL
+from analytics.models import ClickEvent
 
 
-class KirrRedirectView(View):
+class URLRedirectView(View):
     def get(self, request, shortcode=None, *args, **kwargs):
         obj = get_object_or_404(KirrURL, shortcode=shortcode)
+        ClickEvent.objects.create_event(obj)
         return HttpResponseRedirect(obj.url)
 
 

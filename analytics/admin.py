@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import KirrURL
 
+from .models import ClickEvent
 
-admin.site.register(KirrURL)
+admin.site.register(ClickEvent)
+
