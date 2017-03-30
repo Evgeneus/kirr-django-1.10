@@ -3,6 +3,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from django.db import models
 from django.conf import settings
+from django_hosts.resolvers import reverse
 from .utils import create_shortcode
 from .validators import validate_url
 
@@ -46,3 +47,7 @@ class KirrURL(models.Model):
 
     def __str__(self):
         return str(self.url)
+
+    def get_short_url(self):
+        url_path = reverse('scode', kwargs={'shortcode': self.shortcode}, host='www', scheme='http')
+        return url_path
